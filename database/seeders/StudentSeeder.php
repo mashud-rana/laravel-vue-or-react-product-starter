@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\StudentProfile;
+use App\Models\UserDetail;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +18,7 @@ class StudentSeeder extends Seeder
     public function run()
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        DB::table('student_profiles')->truncate();
+        DB::table('user_details')->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $faker = \Faker\Factory::create();
@@ -36,7 +36,7 @@ class StudentSeeder extends Seeder
             'remember_token'        => Str::random(10),
         ]);
 
-        StudentProfile::create([
+        UserDetail::create([
             'user_id'           => $student->id,
             'address'           => $faker->address(),
             'city'              => $faker->city(),
@@ -63,7 +63,7 @@ class StudentSeeder extends Seeder
         User::factory(10)->create([
             'type' => User::TYPE_STUDENT,
         ])->each(function ($user) {
-            StudentProfile::factory()->create([
+            UserDetail::factory()->create([
                 'user_id' => $user->id,
             ]);
         });

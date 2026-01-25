@@ -1,32 +1,229 @@
-/.phpunit.cache
+# ============================================
+# Laravel Framework
+# ============================================
+/vendor
 /node_modules
-/public/build
 /public/hot
+/public/build
+/public/storage
+/bootstrap/cache/*
+!/bootstrap/cache/.gitignore
+
+# ============================================
+# Storage Directories
+# ============================================
+/storage/*
+!/storage/
+!/storage/app/
+!/storage/app/.gitignore
+!/storage/app/public/
+!/storage/app/public/.gitignore
+!/storage/framework/
+!/storage/framework/.gitignore
+!/storage/framework/cache/
+!/storage/framework/cache/.gitignore
+!/storage/framework/cache/data/
+!/storage/framework/cache/data/.gitignore
+!/storage/framework/sessions/
+!/storage/framework/sessions/.gitignore
+!/storage/framework/testing/
+!/storage/framework/testing/.gitignore
+!/storage/framework/views/
+!/storage/framework/views/.gitignore
+!/storage/logs/
+!/storage/logs/.gitignore
+/storage/*.key
+/storage/pail
+
+# Tenant-specific storage
+!/storage/tenantfoo/
+/storage/tenantfoo/app/public/images/*
+/storage/tenantfoo/app/public/files/*
+!/storage/tenantfoo/app/public/images/product-variant
+
+# ============================================
+# Environment & Configuration
+# ============================================
+.env
+.env.*
+!.env.example
+.env.backup
+.env.production
+auth.json
+
+# ============================================
+# Public Directories
+# ============================================
 /public/files
 /public/files/*
 /public/files/*.key
-/public/storage
-/storage/*.key
-/storage/pail
-/vendor
-.env
-.env.backup
-.env.production
-.phpactor.json
+/public/.pdf
+
+# ============================================
+# Testing & Debugging
+# ============================================
+/.phpunit.cache
 .phpunit.result.cache
-Homestead.json
-Homestead.yaml
-auth.json
-npm-debug.log
-yarn-error.log
-/.fleet
+phpunit.xml.dist
+.phpactor.json
+/tests/coverage
+/tests/_output
+.pest
+
+# ============================================
+# IDE & Editor Files
+# ============================================
+# PHPStorm
 /.idea
+/*.iml
+/out
+
+# VSCode
 /.vscode
+!/.vscode/settings.json
+!/.vscode/tasks.json
+!/.vscode/launch.json
+!/.vscode/extensions.json
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Zed
 /.zed
 
-# /bootstrap/cache/*
-#/public/build
+# Nova
+/.nova
+
+# Fleet
+/.fleet
+
+# Atom
+.atom/
+
+# Eclipse
+.buildpath
+.project
+.settings/
+
+# NetBeans
+nbproject/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# ============================================
+# Homestead & Docker
+# ============================================
+Homestead.json
+Homestead.yaml
+vagrant/
+.vagrant/
+/.docker/postgresql
+/.docker/redis
+/.docker/rabbitmq
+
+# ============================================
+# Logs & Debugging
+# ============================================
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 error_log.log
 /public/error_log.log
-http.http
+*.log
+/storage/logs/*.log
 
+# ============================================
+# Language Files
+# ============================================
+/lang
+
+# ============================================
+# Compressed Archives
+# ============================================
+*.zip
+*.tar
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.gz
+*.bz2
+*.xz
+*.rar
+*.7z
+*.tgz
+*.tbz2
+*.txz
+
+# ============================================
+# CI/CD
+# ============================================
+.gitlab-ci-local*
+/.github/workflows/local-*
+
+# ============================================
+# OS Files
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# ============================================
+# Backup & Temporary Files
+# ============================================
+*.swp
+*.swo
+*.tmp
+*.bak
+*.old
+*.orig
+*~
+TODO
+
+# ============================================
+# Documentation
+# ============================================
+# Ignore all markdown files except README.md
+*.md
+!README.md
+!CHANGELOG.md
+!CONTRIBUTING.md
+!LICENSE.md
+
+# ============================================
+# HTTP Client & Testing
+# ============================================
+http.http
+*.http
+.httpYac
+
+# ============================================
+# Package Manager
+# ============================================
+composer.phar
+composer.lock.bak
+package-lock.json.bak
+
+# ============================================
+# Build & Dependencies Cache
+# ============================================
+.cache/
+.parcel-cache/
+.sass-cache/
+*.css.map
+*.js.map
+
+# ============================================
+# Miscellaneous
+# ============================================
+.phpstorm.meta.php
+_ide_helper.php
+_ide_helper_models.php
+.phpunit.result.cache

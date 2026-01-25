@@ -19,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Health check endpoint for Docker/monitoring
+Route::get('/health', function () {
+    return response('healthy', 200)
+        ->header('Content-Type', 'text/plain');
+});
+
 //Route::get('/', function () {
 //    return view('welcome');
 //});
@@ -48,8 +54,5 @@ Route::middleware(['auth', 'verified'])->group(function (){
 
     Route::resource('students', StudentController::class);
 });
-
-//SYSTEM LOG
-Route::get('app-logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
 
 require __DIR__.'/auth.php';

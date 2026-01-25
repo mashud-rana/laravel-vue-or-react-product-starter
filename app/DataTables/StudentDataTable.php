@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\StudentProfile;
+use App\Models\UserDetail;
 use App\Services\UserService;
 use Illuminate\Database\Eloquent\Builder;
 use App\Models\User;
@@ -116,10 +116,10 @@ class StudentDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * StudentProfile $model
+     * UserDetail $model
      * @return builder
      */
-    public function query(StudentProfile $model): Builder
+    public function query(UserDetail $model): Builder
     {
         return $model->newQuery()
             ->with([

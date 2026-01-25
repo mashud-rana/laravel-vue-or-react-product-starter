@@ -15,7 +15,6 @@ class UserService extends BaseService
     public function __construct(User $model)
     {
         parent::__construct($model);
-        //        $this->fileUploadService = $fileUploadService;
     }
     public function createOrUpdate(Request|array $request, int $id = null): User
     {

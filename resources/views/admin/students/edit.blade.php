@@ -67,7 +67,7 @@
                             <label>{{ __('Date Of Birth') }} <span class="error">*</span></label>
                             <input type="date" name="dob" class="form-control"
                                 placeholder="{{ __('Date Of Birth') }}" required
-                                value="{{ old('dob', optional($user->studentProfile)->dob) }}">
+                                value="{{ old('dob', optional($user->userDetail)->dob) }}">
 
                             @error('dob')
                                 <p class="error">{{ $message }}</p>
@@ -140,7 +140,7 @@
                         </div>
                         <div class="form-group col-xl-12 col-lg-12 p-2">
                             <label>{{ __('Bio') }} </label>
-                            <textarea name="about" class="form-control" rows="3">{{ old('about', optional($user->studentProfile)->about) }}</textarea>
+                            <textarea name="about" class="form-control" rows="3">{{ old('about', optional($user->userDetail)->about) }}</textarea>
 
                             @error('about')
                                 <p class="error">{{ $message }}</p>
@@ -156,7 +156,7 @@
                             <label>{{ __('Medical license') }} </label>
                             <input type="text" name="medical_license" class="form-control"
                                 placeholder="{{ __('Medical license') }}"
-                                value="{{ old('medical_license', optional($user->studentProfile)->medical_license) }}">,
+                                value="{{ old('medical_license', optional($user->userDetail)->medical_license) }}">,
 
                             @error('medical_license')
                                 <p class="error">{{ $message }}</p>
@@ -167,16 +167,16 @@
                             <label>{{ __('License Type') }} </label>
                             <select name="license_type" class="form-control">
                                 <option
-                                    {{ old('license_type', optional($user->studentProfile)->license_type) == 'passport' ? 'selected' : '' }}
+                                    {{ old('license_type', optional($user->userDetail)->license_type) == 'passport' ? 'selected' : '' }}
                                     value="passport">{{ __('Passport') }}</option>
                                 <option
-                                    {{ old('license_type', optional($user->studentProfile)->license_type) == 'national_id' ? 'selected' : '' }}
+                                    {{ old('license_type', optional($user->userDetail)->license_type) == 'national_id' ? 'selected' : '' }}
                                     value="national_id">{{ __('National ID') }}</option>
                                 <option
-                                    {{ old('license_type', optional($user->studentProfile)->license_type) == 'driving_license' ? 'selected' : '' }}
+                                    {{ old('license_type', optional($user->userDetail)->license_type) == 'driving_license' ? 'selected' : '' }}
                                     value="driving_license">{{ __('Driving License') }}</option>
                                 <option
-                                    {{ old('license_type', optional($user->studentProfile)->license_type) == 'other' ? 'selected' : '' }}
+                                    {{ old('license_type', optional($user->userDetail)->license_type) == 'other' ? 'selected' : '' }}
                                     value="other">{{ __('Other') }}</option>
                             </select>
                             @error('license_type')
@@ -189,7 +189,7 @@
                             <label>{{ __('License Number') }} </label>
                             <input type="text" name="license_number" class="form-control"
                                 placeholder="{{ __('License Number') }}"
-                                value="{{ old('license_number', optional($user->studentProfile)->license_number) }}">
+                                value="{{ old('license_number', optional($user->userDetail)->license_number) }}">
 
                             @error('license_number')
                                 <p class="error">{{ $message }}</p>
@@ -205,7 +205,7 @@
                         <div class="form-group col-xl-4 col-lg-6 p-2">
                             <label>{{ __('Country') }} </label>
                             <input type="text" name="country" class="form-control" placeholder="{{ __('Country') }}"
-                                value="{{ old('country', optional($user->studentProfile)->country) }}">
+                                value="{{ old('country', optional($user->userDetail)->country) }}">
 
                             @error('country')
                                 <p class="error">{{ $message }}</p>
@@ -214,7 +214,7 @@
                         <div class="form-group col-xl-4 col-lg-6 p-2">
                             <label>{{ __('State') }} </label>
                             <input type="text" name="state" class="form-control" placeholder="{{ __('State') }}"
-                                value="{{ old('state', optional($user->studentProfile)->state) }}">
+                                value="{{ old('state', optional($user->userDetail)->state) }}">
 
                             @error('state')
                                 <p class="error">{{ $message }}</p>
@@ -223,7 +223,7 @@
                         <div class="form-group col-xl-4 col-lg-6 p-2">
                             <label>{{ __('City') }} </label>
                             <input type="text" name="city" class="form-control" placeholder="{{ __('City') }}"
-                                value="{{ old('city', optional($user->studentProfile)->city) }}">
+                                value="{{ old('city', optional($user->userDetail)->city) }}">
 
                             @error('city')
                                 <p class="error">{{ $message }}</p>
@@ -233,7 +233,7 @@
                             <label>{{ __('Zip Code') }} </label>
                             <input type="text" name="zip_code" class="form-control"
                                 placeholder="{{ __('Zip Code') }}"
-                                value="{{ old('zip_code', optional($user->studentProfile)->zip_code) }}">
+                                value="{{ old('zip_code', optional($user->userDetail)->zip_code) }}">
 
                             @error('zip_code')
                                 <p class="error">{{ $message }}</p>
@@ -241,7 +241,7 @@
                         </div>
                         <div class="form-group col-xl-8 col-lg-6 p-2">
                             <label>{{ __('Address') }} </label>
-                            <textarea name="address" class="form-control" placeholder="{{ __('Address') }}">{{ old('address', optional($user->studentProfile)->address) }}</textarea>
+                            <textarea name="address" class="form-control" placeholder="{{ __('Address') }}">{{ old('address', optional($user->userDetail)->address) }}</textarea>
                             {{--                        <input type="text" name="address" class="form-control" placeholder="{{__('Address')}}" --}}
                             {{--                            value="{{ old('address') }}"> --}}
 
@@ -258,7 +258,7 @@
                             <label>{{ __('Facebook') }} </label>
                             <input type="url" name="facebook" class="form-control"
                                 placeholder="{{ __('Facebook') }}"
-                                value="{{ old('facebook', optional($user->studentProfile)->facebook) }}">
+                                value="{{ old('facebook', optional($user->userDetail)->facebook) }}">
 
                             @error('facebook')
                                 <p class="error">{{ $message }}</p>
@@ -267,7 +267,7 @@
                         <div class="form-group col-xl-4 col-lg-6 p-2">
                             <label>{{ __('Twitter') }} </label>
                             <input type="url" name="twitter" class="form-control" placeholder="{{ __('Twitter') }}"
-                                value="{{ old('twitter', optional($user->studentProfile)->twitter) }}">
+                                value="{{ old('twitter', optional($user->userDetail)->twitter) }}">
 
                             @error('twitter')
                                 <p class="error">{{ $message }}</p>
@@ -277,7 +277,7 @@
                             <label>{{ __('Linkedin') }} </label>
                             <input type="url" name="linkedin" class="form-control"
                                 placeholder="{{ __('Linkedin') }}"
-                                value="{{ old('linkedin', optional($user->studentProfile)->linkedin) }}">
+                                value="{{ old('linkedin', optional($user->userDetail)->linkedin) }}">
 
                             @error('linkedin')
                                 <p class="error">{{ $message }}</p>
@@ -287,7 +287,7 @@
                             <label>{{ __('Instagram') }} </label>
                             <input type="url" name="instagram" class="form-control"
                                 placeholder="{{ __('Instagram') }}"
-                                value="{{ old('instagram', optional($user->studentProfile)->instagram) }}">
+                                value="{{ old('instagram', optional($user->userDetail)->instagram) }}">
 
                             @error('instagram')
                                 <p class="error">{{ $message }}</p>
@@ -297,7 +297,7 @@
                             <label>{{ __('Youtube') }} </label>
                             <input type="url" name="youtube" class="form-control"
                                 placeholder="{{ __('Youtube') }}"
-                                value="{{ old('youtube', optional($user->studentProfile)->youtube) }}">
+                                value="{{ old('youtube', optional($user->userDetail)->youtube) }}">
 
                             @error('youtube')
                                 <p class="error">{{ $message }}</p>
@@ -307,7 +307,7 @@
                             <label>{{ __('Website') }} </label>
                             <input type="url" name="website" class="form-control"
                                 placeholder="{{ __('Website') }}"
-                                value="{{ old('website', optional($user->studentProfile)->website) }}">
+                                value="{{ old('website', optional($user->userDetail)->website) }}">
                             @error('website')
                                 <p class="error">{{ $message }}</p>
                             @enderror

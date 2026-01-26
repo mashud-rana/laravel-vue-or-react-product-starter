@@ -397,4 +397,5 @@ bun run build
 ### Regards  [Zahid Hassan Shaikot](https://github.com/zahidhassanshaikot/)
 
 ## Contributors
-[Zahid Hassan Shaikot](https://github.com/zahidhassanshaikot/), [A Awal Hadi](https://github.com/awalhadi)
+- [Zahid Hassan Shaikot](https://github.com/zahidhassanshaikot/)
+- [A Awal Hadi](https://github.com/awalhadi)

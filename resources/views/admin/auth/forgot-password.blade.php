@@ -43,7 +43,9 @@
             <div class="mt-5 text-center">
                 <p>Remember It ? <a href="{{ route('login') }}" class="fw-medium text-primary"> Sign In here </a> </p>
                 <p class="mb-0">© {{ date('Y') }}
-                    {{ config('settings.site_title') }}. Crafted with <i class="mdi mdi-heart text-danger"></i> by Zahid Hassan Shaikot</p>
+                    {{ config('settings.site_title') }}<span class="d-none d-sm-inline-block"> - Crafted with <i
+                            class="mdi mdi-heart text-danger"></i> by <a href="https://itclanbd.com" target="_blank"
+                            rel="noopener noreferrer">ITclan BD</a>.</span></p>
             </div>
 
         </div>

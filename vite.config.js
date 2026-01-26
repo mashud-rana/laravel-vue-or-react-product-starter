@@ -1,39 +1,38 @@
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import vue from '@vitejs/plugin-vue';
-import i18n from 'laravel-vue-i18n/vite';
+import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
   plugins: [
-    splitVendorChunkPlugin(),
     laravel({
-      input: ['resources/js/app.js'],
+      input: ['resources/js/app.jsx', 'resources/css/app.css'],
       refresh: true,
     }),
-    vue({
-      template: {
-        transformAssetUrls: {
-          base: null,
-          includeAbsolute: false,
-        },
-      },
+    react({
+      // React Fast Refresh
+      fastRefresh: true,
     }),
-    i18n(),
   ],
   resolve: {
     alias: {
       '@': '/resources/js',
-      vue: 'vue/dist/vue.esm-bundler.js',
       ziggy: path.resolve('vendor/tightenco/ziggy/dist/index.esm.js'),
       jquery: 'jquery',
     },
   },
   build: {
     chunkSizeWarningLimit: 1600,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          utils: ['axios', 'lodash'],
+        },
+      },
+    },
   },
-  // define: {
-  //   $: 'jquery',
-  //   jQuery: 'jquery',
-  // },
+  optimizeDeps: {
+    include: ['react', 'react-dom', 'axios', 'jquery'],
+  },
 });

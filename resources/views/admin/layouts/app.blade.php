@@ -10,7 +10,17 @@
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ getStorageImage(config('settings.site_favicon'),false,'favicon') }}">
-    @vite('resources/js/app.js')
+
+    {{-- Make translations and config available to React --}}
+    <script>
+        window.translations = @json(__('*'));
+        window.locale = '{{ app()->getLocale() }}';
+        window.csrfToken = '{{ csrf_token() }}';
+        window.appUrl = '{{ url('/') }}';
+    </script>
+
+    @viteReactRefresh
+    @vite(['resources/js/app.jsx', 'resources/css/app.css'])
     @include('admin.layouts.partials.styles')
 </head>
 
@@ -29,7 +39,7 @@
         <!-- ============================================================== -->
         <!-- Start right Content here -->
         <!-- ============================================================== -->
-        <div id="vueApp" class="main-content">
+        <div id="reactApp" class="main-content">
 
             <div class="page-content">
                 <div class="container-fluid">

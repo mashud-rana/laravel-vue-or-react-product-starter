@@ -53,6 +53,11 @@ Route::middleware(['auth', 'verified'])->group(function (){
 //    Route::post('users/bulk-status-change', [UserController::class, 'bulk_status_change'])->name('users.bulk-status-change');
 
     Route::resource('students', StudentController::class);
+
+    // React Examples Page
+    Route::get('/react-examples', function () {
+        return view('admin.react-examples');
+    })->name('react.examples');
 });
 
 require __DIR__.'/auth.php';

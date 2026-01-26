@@ -1,21 +1,50 @@
-// import { iziToast } from "izitoast";
-
-// initialize settings
-
-import { isProxy, toRaw } from "vue";
-import Translate from "./trans/translate_helper";
-import axios from 'axios';
+// Helper functions for the application
 import * as _ from "lodash";
 
-toastr.options = {
-    timeOut: 5000,
-    showDuration: 300,
-    progressBar: true,
-    icon: "material-icons",
-    closeButton: true,
-    showMethod: "fadeIn",
-    positionClass: "toast-top-right",
-};
+// TypeScript declarations for global variables
+declare global {
+    interface Window {
+        toast?: {
+            success: (message: string) => void;
+            error: (message: string) => void;
+            info: (message: string) => void;
+            warning: (message: string) => void;
+        };
+        translations?: Record<string, string>;
+        locale?: string;
+        csrfToken?: string;
+        appUrl?: string;
+    }
+
+    const toastr: {
+        options: {
+            timeOut?: number;
+            showDuration?: number;
+            progressBar?: boolean;
+            icon?: string;
+            closeButton?: boolean;
+            showMethod?: string;
+            positionClass?: string;
+        };
+        success: (message: string) => void;
+        error: (message: string) => void;
+        info: (message: string) => void;
+        warning: (message: string) => void;
+    };
+}
+
+// Toastr configuration (assuming toastr is loaded globally)
+if (typeof toastr !== 'undefined') {
+    toastr.options = {
+        timeOut: 5000,
+        showDuration: 300,
+        progressBar: true,
+        icon: "material-icons",
+        closeButton: true,
+        showMethod: "fadeIn",
+        positionClass: "toast-top-right",
+    };
+}
 
 interface Features {
     title?: string;
@@ -30,7 +59,12 @@ const notifyMe = (
     position: string = "toast-top-right"
 ): void => {
     if (message.length > 0) {
-        toastr[type](message);
+        // Use react-hot-toast if available, fallback to toastr
+        if (typeof window !== 'undefined' && window.toast) {
+            window.toast[type](message);
+        } else if (typeof toastr !== 'undefined') {
+            toastr[type](message);
+        }
     }
 };
 
@@ -40,59 +74,39 @@ const notifyErrors = (
 ): void => {
     for (const errorItem in messages) {
         const items = messages[errorItem];
-        items.forEach((error) => {
-            notifyMe(items, "error");
-        });
-    }
-};
-
-const proxyObjToPlainObj = (obj: {}) => {
-    if (!obj && typeof obj === "undefined") {
-        return obj;
-    } else {
-        if (isProxy(obj)) {
-            return toRaw(obj);
+        if (Array.isArray(items)) {
+            items.forEach((error) => {
+                notifyMe(error, "error");
+            });
         } else {
-            return JSON.parse(JSON.stringify(obj));
+            notifyMe(items, "error");
         }
     }
 };
 
-const proxyObjToArray = (proxyObj: {}) => {
-    const proxyData = proxyObjToPlainObj(proxyObj);
+const toPlainObj = (obj: any): any => {
+    if (!obj || typeof obj === "undefined") {
+        return obj;
+    }
+    return JSON.parse(JSON.stringify(obj));
+};
 
-    const results = Object.keys(proxyData).map((key) => {
-        return proxyData[key];
+const objToArray = (obj: {}): any[] => {
+    const plainData = toPlainObj(obj);
+
+    if (Array.isArray(plainData)) {
+        return plainData;
+    }
+
+    const results = Object.keys(plainData).map((key) => {
+        return plainData[key];
     });
 
-    // return _.reverse(results);
     return results;
 };
 
-const findBy = (
-    array: [],
-    findByValue: number | string,
-    findPropertyName: string = "id"
-) => {
-    if (typeof array === "undefined") {
-        return array;
-    }
-
-    const proxyData = proxyObjToPlainObj(array);
-
-    const results = Object.keys(proxyData).map((key) => {
-        return proxyData[key];
-    });
-
-    // return _.find(results);
-    const item = _.findIndex(results, function (obj) {
-        return obj[findPropertyName] == findByValue;
-    });
-    return item;
-};
-
-const proxyObjToArrayWithReverse = (proxyObj: {}) => {
-    const array = proxyObjToArray(proxyObj);
+const objToArrayWithReverse = (obj: {}): any[] => {
+    const array = objToArray(obj);
     return _.reverse(array);
 };
 
@@ -100,44 +114,21 @@ const strLimit = (
     str: string,
     limitLength: number = 18,
     concatenate: string = "..."
-) => {
+): string => {
     let output = "";
     if (str && str.length > limitLength) {
-        output = `${str.substr(0, limitLength)}...`;
+        output = `${str.substr(0, limitLength)}${concatenate}`;
     } else {
         output = str;
     }
     return output;
 };
 
-let allLangData:any;
-
-const  getTrans = (model: string, id?:number, locale?:'bn', field_name?:'string', defaultVal?:string|number|null) => {
-    const trans = new Translate(model, locale, id, field_name, defaultVal);
-    return trans.getTransData();
-}
-
-const initiateTranslate = async (model, locale)=>{
-    let  id, field_name, defaultVal;
-    const trans = new Translate(model, locale, id, field_name, defaultVal);
-    return await trans.initializeTranslate();
-}
-
-const removeSessionTranslateData = (model=null, locale=null) => {
-    let  id, field_name, defaultVal;
-    const trans = new Translate(model, locale, id, field_name, defaultVal);
-    return trans.clearSessionData();
-}
-
 export {
     notifyMe,
-    proxyObjToPlainObj,
-    proxyObjToArray,
-    findBy,
+    toPlainObj,
+    objToArray,
     strLimit,
-    proxyObjToArrayWithReverse,
-    notifyErrors,
-    getTrans,
-    initiateTranslate,
-    removeSessionTranslateData
+    objToArrayWithReverse,
+    notifyErrors
 };

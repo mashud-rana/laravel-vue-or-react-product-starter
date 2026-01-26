@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SubscriberController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,11 +26,8 @@ Route::get('/health', function () {
         ->header('Content-Type', 'text/plain');
 });
 
-//Route::get('/', function () {
-//    return view('welcome');
-//});
-
-Route::redirect('/', 'login');
+// Landing Page
+Route::get('/', [LandingController::class, 'index'])->name('landing');
 
 Route::middleware(['auth', 'verified'])->group(function (){
     Route::get('/dashboard',[DashboardController::class,'index'] )->name('dashboard');

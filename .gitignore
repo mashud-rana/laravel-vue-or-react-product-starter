@@ -44,11 +44,8 @@
 # ============================================
 # Environment & Configuration
 # ============================================
-.env
-.env.*
 !.env.example
 .env.backup
-.env.production
 auth.json
 
 # ============================================
@@ -79,11 +76,6 @@ phpunit.xml.dist
 /out
 
 # VSCode
-/.vscode
-!/.vscode/settings.json
-!/.vscode/tasks.json
-!/.vscode/launch.json
-!/.vscode/extensions.json
 
 # Sublime Text
 *.sublime-project
@@ -227,3 +219,7 @@ package-lock.json.bak
 _ide_helper.php
 _ide_helper_models.php
 .phpunit.result.cache
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+config.bat

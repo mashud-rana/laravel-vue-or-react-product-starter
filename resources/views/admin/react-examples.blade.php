@@ -125,7 +125,7 @@ const limited = strLimit(longString, 50);</code></pre>
             background-color: #f8f9fa;
             padding: 15px;
             border-radius: 5px;
-            border-left: 4px solid #4154f1;
+            border-left: 4px solid rgb(6, 46, 90);
         }
         code {
             color: #d63384;

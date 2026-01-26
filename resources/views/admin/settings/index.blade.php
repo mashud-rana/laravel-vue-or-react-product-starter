@@ -641,16 +641,16 @@
 
         .settings-sidebar .nav-link:hover {
             background-color: #f0f4ff;
-            color: #4154f1;
+            color: rgb(6, 46, 90);
             border-color: #e0e7ff;
             transform: translateX(5px);
         }
 
         .settings-sidebar .nav-link.active {
-            background: linear-gradient(135deg, #4154f1 0%, #6366f1 100%);
+            background: linear-gradient(135deg, rgb(6, 46, 90) 0%, rgb(8, 60, 110) 100%);
             color: white;
             box-shadow: 0 4px 12px rgba(65, 84, 241, 0.3);
-            border-color: #4154f1;
+            border-color: rgb(6, 46, 90);
         }
 
         .settings-sidebar .nav-link i {
@@ -683,7 +683,7 @@
         }
 
         .logo-upload-card:hover {
-            border-color: #4154f1 !important;
+            border-color: rgb(6, 46, 90) !important;
             box-shadow: 0 4px 12px rgba(65, 84, 241, 0.1);
             transform: translateY(-2px);
         }
@@ -724,7 +724,7 @@
 
         .input-group:focus-within .input-group-text {
             border-color: #86b7fe;
-            color: #4154f1;
+            color: rgb(6, 46, 90);
         }
 
         .input-group:focus-within .form-control {
@@ -737,7 +737,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #4154f1 0%, #6366f1 100%);
+            background: linear-gradient(135deg, rgb(6, 46, 90) 0%, rgb(8, 60, 110) 100%);
             border: none;
             padding: 10px 24px;
             font-weight: 500;
@@ -765,7 +765,7 @@
         .alert-info {
             background-color: #e7f3ff;
             color: #004085;
-            border-left: 4px solid #4154f1;
+            border-left: 4px solid rgb(6, 46, 90);
         }
 
         .card {

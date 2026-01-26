@@ -23,9 +23,6 @@ class UserDetailFactory extends Factory
             'zip_code'          => $this->faker->postcode(),
             'about'             => $this->faker->paragraph(),
             'dob'               => $this->faker->date(),
-            'medical_license'   => $this->faker->word(),
-            'license_type'      => $this->faker->word(),
-            'license_number'    => $this->faker->word(),
 
         ];
     }

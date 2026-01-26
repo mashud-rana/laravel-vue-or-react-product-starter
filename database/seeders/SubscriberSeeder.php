@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class StudentSeeder extends Seeder
+class SubscriberSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -23,21 +23,21 @@ class StudentSeeder extends Seeder
 
         $faker = \Faker\Factory::create();
 
-        $student = User::updateOrCreate([
+        $subscriber = User::updateOrCreate([
             'first_name'            => 'test',
-            'last_name'             => 'student',
-            'email'                 => 'student@app.com',
+            'last_name'             => 'subscriber',
+            'email'                 => 'subscriber@app.com',
             'phone'                 => '1234567890',
             'gender'                => 1,
             'email_verified_at'     => now(),
             'password'              => \Illuminate\Support\Facades\Hash::make('12345678'),
             'status'                => User::STATUS_ACTIVE,
-            'type'                  => User::TYPE_STUDENT,
+            'type'                  => User::TYPE_SUBSCRIBER,
             'remember_token'        => Str::random(10),
         ]);
 
         UserDetail::create([
-            'user_id'           => $student->id,
+            'user_id'           => $subscriber->id,
             'address'           => $faker->address(),
             'city'              => $faker->city(),
             'state'             => $faker->state(),
@@ -45,9 +45,6 @@ class StudentSeeder extends Seeder
             'zip_code'          => $faker->postcode(),
             'about'             => $faker->paragraph(),
             'dob'               => $faker->date(),
-            'medical_license'   => $faker->word(),
-            'license_type'      => $faker->word(),
-            'license_number'    => $faker->word(),
 
             'facebook'      => $faker->url(),
             'twitter'       => $faker->url(),
@@ -61,7 +58,7 @@ class StudentSeeder extends Seeder
 
 
         User::factory(10)->create([
-            'type' => User::TYPE_STUDENT,
+            'type' => User::TYPE_SUBSCRIBER,
         ])->each(function ($user) {
             UserDetail::factory()->create([
                 'user_id' => $user->id,
@@ -69,3 +66,4 @@ class StudentSeeder extends Seeder
         });
     }
 }
+

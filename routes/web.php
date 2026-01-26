@@ -4,7 +4,7 @@ use App\Http\Controllers\CommonController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
-use App\Http\Controllers\Admin\StudentController;
+use App\Http\Controllers\Admin\SubscriberController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,7 +52,8 @@ Route::middleware(['auth', 'verified'])->group(function (){
     Route::post('users/bulk-delete', [UserController::class, 'bulk_destroy'])->name('users.bulk-destroy');
 //    Route::post('users/bulk-status-change', [UserController::class, 'bulk_status_change'])->name('users.bulk-status-change');
 
-    Route::resource('students', StudentController::class);
+    Route::resource('subscribers', SubscriberController::class);
+    Route::put('subscribers/{id}/restore', [SubscriberController::class, 'restore'])->name('subscribers.restore');
 
     // React Examples Page
     Route::get('/react-examples', function () {

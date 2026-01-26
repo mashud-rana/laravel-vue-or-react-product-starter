@@ -196,12 +196,12 @@ export default CourseList;
 ### 3. Form Handling with React
 
 ```jsx
-// resources/js/components/StudentForm.jsx
+// resources/js/components/SubscriberForm.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const StudentForm = () => {
+const SubscriberForm = () => {
     const [formData, setFormData] = useState({
         first_name: '',
         last_name: '',
@@ -219,11 +219,11 @@ const StudentForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('/api/students', formData);
-            toast.success('Student created successfully');
+            await axios.post('/api/subscribers', formData);
+            toast.success('Subscriber created successfully');
             setFormData({ first_name: '', last_name: '', email: '', phone: '' });
         } catch (error) {
-            toast.error('Failed to create student');
+            toast.error('Failed to create subscriber');
         }
     };
 
@@ -253,27 +253,27 @@ const StudentForm = () => {
                 placeholder="Email"
                 required
             />
-            <button type="submit">Create Student</button>
+            <button type="submit">Create Subscriber</button>
         </form>
     );
 };
 
-export default StudentForm;
+export default SubscriberForm;
 ```
 
 ### 4. Mounting React Components in Blade
 
 ```php
-<!-- resources/views/students/dashboard.blade.php -->
+<!-- resources/views/subscribers/dashboard.blade.php -->
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Student Dashboard</title>
+    <title>Subscriber Dashboard</title>
     @vite(['resources/css/app.css', 'resources/js/app.jsx'])
 </head>
 <body>
-    <div id="student-dashboard" 
-         data-student-id="{{ $student->id }}"
+    <div id="subscriber-dashboard" 
+         data-subscriber-id="{{ $subscriber->id }}"
          data-api-url="{{ config('app.url') }}/api">
     </div>
 </body>
@@ -284,16 +284,16 @@ export default StudentForm;
 // resources/js/app.jsx
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import StudentDashboard from './components/StudentDashboard';
+import SubscriberDashboard from './components/SubscriberDashboard';
 
-// Mount Student Dashboard
-const studentDashboardEl = document.getElementById('student-dashboard');
-if (studentDashboardEl) {
-    const studentId = studentDashboardEl.dataset.studentId;
-    const apiUrl = studentDashboardEl.dataset.apiUrl;
+// Mount Subscriber Dashboard
+const subscriberDashboardEl = document.getElementById('subscriber-dashboard');
+if (subscriberDashboardEl) {
+    const subscriberId = subscriberDashboardEl.dataset.subscriberId;
+    const apiUrl = subscriberDashboardEl.dataset.apiUrl;
     
-    createRoot(studentDashboardEl).render(
-        <StudentDashboard studentId={studentId} apiUrl={apiUrl} />
+    createRoot(subscriberDashboardEl).render(
+        <SubscriberDashboard subscriberId={subscriberId} apiUrl={apiUrl} />
     );
 }
 ```
@@ -349,22 +349,21 @@ bun run watch
 
 ## API Endpoints
 
-### Students
+### Subscribers
 ```
-GET    /api/students         - List all students
-GET    /api/students/{id}    - Get student details
-POST   /api/students         - Create student
-PUT    /api/students/{id}    - Update student
-DELETE /api/students/{id}    - Delete student
+GET    /api/subscribers         - List all subscribers
+GET    /api/subscribers/{id}    - Get subscriber details
+POST   /api/subscribers         - Create subscriber
+PUT    /api/subscribers/{id}    - Update subscriber
+DELETE /api/subscribers/{id}    - Delete subscriber
 ```
 
-### Courses
+### Tools & Services
 ```
-GET    /api/courses          - List all courses
-GET    /api/courses/{id}     - Get course details
-POST   /api/courses          - Create course
-PUT    /api/courses/{id}     - Update course
-DELETE /api/courses/{id}     - Delete course
+GET    /api/tools               - List all available tools
+GET    /api/tools/{id}          - Get tool details
+POST   /api/subscriptions       - Subscribe to a tool or bundle
+GET    /api/subscriptions       - Get user subscriptions
 ```
 
 ## Development Tips

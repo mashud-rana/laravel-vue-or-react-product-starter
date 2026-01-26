@@ -24,9 +24,6 @@ class CreateUserDetailsTable extends Migration
             $table->text('billing_address')->nullable();
             $table->text('about')->nullable();
             $table->date('dob')->nullable();
-            $table->string('medical_license',100)->nullable();
-            $table->string('license_type',20)->nullable()->comment('passport,driving, medical, etc');
-            $table->string('license_number', '50')->nullable();
 
             $table->string('facebook')->nullable();
             $table->string('twitter')->nullable();

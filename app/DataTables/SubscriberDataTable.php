@@ -15,11 +15,11 @@ use Yajra\DataTables\Services\DataTable;
 use PDF;
 
 /**
- * Class StudentDataTable
+ * Class SubscriberDataTable
  *
  * @package App\Http\Controllers\Admin
  */
-class StudentDataTable extends DataTable
+class SubscriberDataTable extends DataTable
 {
     public $status;
     public function __construct($request)
@@ -37,38 +37,26 @@ class StudentDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', function ($student) {
+            ->addColumn('action', function ($subscriber) {
                 $buttons = '';
-                if (auth()->user()->can('Edit Student')) {
-                    $buttons .= '<li><a class="dropdown-item" href="' . route('students.show', $student->user->id) . '" title="Show"><i class="mdi mdi-eye-outline"></i>' . __('Show') . '</a></li>';
-                    $buttons .= '<li><a class="dropdown-item" href="' . route('students.edit', $student->user->id) . '" title="Edit"><i class="mdi mdi-square-edit-outline"></i>' . __('Edit') . '</a></li>';
+                if (auth()->user()->can('Edit Subscriber')) {
+                    $buttons .= '<li><a class="dropdown-item" href="' . route('subscribers.show', $subscriber->user->id) . '" title="Show"><i class="mdi mdi-eye-outline"></i>' . __('Show') . '</a></li>';
+                    $buttons .= '<li><a class="dropdown-item" href="' . route('subscribers.edit', $subscriber->user->id) . '" title="Edit"><i class="mdi mdi-square-edit-outline"></i>' . __('Edit') . '</a></li>';
                 }
-//                if (auth()->user()->can('Enroll Course')) {
-//                    $buttons .= '<li><a class="dropdown-item modal-menu"
-//                    data-url="' . route('load-modal', ['page_name' => 'enroll-course', 'param1' => $student->user->id]) . '"
-//                    data-title="' . __('Enroll Course') . '"
-//                    data-bs-toggle="modal"
-//                    data-bs-target="#common-modal"
-//                    href="javascript:void(0)"
-//                    title="Edit"><i class="mdi mdi-square-circle me-1"></i>' . __('Enroll Course') . '</a></li>';
-//                }
-//                if (auth()->user()->can('Enrolled Course List')) {
-//                    $buttons .= '<li><a class="dropdown-item" href="' . route('students.course.enrolled.index', $student->user->id) . '" title="Edit"><i class="mdi mdi-square-edit-outline"></i>' . __('Enrolled Course List') . '</a></li>';
-//                }
 
-                if (auth()->user()->can('Delete Student') && auth()->id() != $student->user_id) {
-                    $button_text = $student->user->deleted_at != null ? 'Permanent Delete' : 'Delete';
-                    $buttons .= '<form action="' . route('students.destroy', $student->user->id) . '"  id="delete-form-' . $student->user->id . '" method="post">
+                if (auth()->user()->can('Delete Subscriber') && auth()->id() != $subscriber->user_id) {
+                    $button_text = $subscriber->user->deleted_at != null ? 'Permanent Delete' : 'Delete';
+                    $buttons .= '<form action="' . route('subscribers.destroy', $subscriber->user->id) . '"  id="delete-form-' . $subscriber->user->id . '" method="post">
                     <input type="hidden" name="_token" value="' . csrf_token() . '">
                     <input type="hidden" name="_method" value="DELETE">
-                    <button class="dropdown-item text-danger delete-list-data" onclick="return makeDeleteRequest(event, ' . $student->user->id . ')" data-from-name="' . $student->user->first_name . '" data-from-id="' . $student->user->id . '"   type="button" title="Delete"><i class="mdi mdi-trash-can-outline"></i> ' . $button_text . '</button></form>
+                    <button class="dropdown-item text-danger delete-list-data" onclick="return makeDeleteRequest(event, ' . $subscriber->user->id . ')" data-from-name="' . $subscriber->user->first_name . '" data-from-id="' . $subscriber->user->id . '"   type="button" title="Delete"><i class="mdi mdi-trash-can-outline"></i> ' . $button_text . '</button></form>
                     ';
                 }
-                if (auth()->user()->can('Restore Student') && auth()->id() != $student->user_id && $student->user->deleted_at != null) {
-                    $buttons .= '<form action="' . route('students.restore', $student->user->id) . '"  id="restore-form-' . $student->user->id . '" method="post">
+                if (auth()->user()->can('Restore Subscriber') && auth()->id() != $subscriber->user_id && $subscriber->user->deleted_at != null) {
+                    $buttons .= '<form action="' . route('subscribers.restore', $subscriber->user->id) . '"  id="restore-form-' . $subscriber->user->id . '" method="post">
                     <input type="hidden" name="_token" value="' . csrf_token() . '">
                     <input type="hidden" name="_method" value="PUT">
-                    <button class="dropdown-item text-info restore-list-data" onclick="return makeRestoreRequest(event, ' . $student->user->id . ')" data-from-name="' . $student->user->first_name . '" data-from-id="' . $student->user->id . '"   type="button" title="Restore"><i class="mdi mdi-restore"></i> ' . __('Restore') . '</button></form>
+                    <button class="dropdown-item text-info restore-list-data" onclick="return makeRestoreRequest(event, ' . $subscriber->user->id . ')" data-from-name="' . $subscriber->user->first_name . '" data-from-id="' . $subscriber->user->id . '"   type="button" title="Restore"><i class="mdi mdi-restore"></i> ' . __('Restore') . '</button></form>
                     ';
                 }
                 return '<div class="btn-group dropstart">
@@ -80,37 +68,37 @@ class StudentDataTable extends DataTable
                           </ul>
                         </div>';
 
-            })->editColumn('user.avatar', function ($student) {
-                return '<img class="ic-list-img" src="' . getStorageImage($student->user->avatar, true) . '" alt="' . $student->name . '" />';
+            })->editColumn('user.avatar', function ($subscriber) {
+                return '<img class="ic-list-img" src="' . getStorageImage($subscriber->user->avatar, true) . '" alt="' . $subscriber->name . '" />';
             })
             ->escapeColumns([])
-            ->editColumn('user.status', function ($student) {
-//                $badge = $student->user->deleted_at != null ? "bg-danger" :( $student->user->status == User::STATUS_ACTIVE ? "bg-success" : "bg-warning");
-                $status = $student->user->deleted_at != null ? __("DELETED") : Str::upper($student->user->status);
+            ->editColumn('user.status', function ($subscriber) {
+//                $badge = $subscriber->user->deleted_at != null ? "bg-danger" :( $subscriber->user->status == User::STATUS_ACTIVE ? "bg-success" : "bg-warning");
+                $status = $subscriber->user->deleted_at != null ? __("DELETED") : Str::upper($subscriber->user->status);
 //                return '<span class="badge ' . $badge . '">' . $status . '</span>';
 
                 //toggle status
-                $id = $student->user->id;
+                $id = $subscriber->user->id;
                 $model = User::class;
                 $column = "status";
-                $checked = $student->user->status == User::STATUS_ACTIVE ? "checked" : "";
+                $checked = $subscriber->user->status == User::STATUS_ACTIVE ? "checked" : "";
                 $route = route('common.status-change', $id);
-                $value = $student->user->status == User::STATUS_ACTIVE ? User::STATUS_INACTIVE : User::STATUS_ACTIVE;
-                $altValue = $student->user->status == User::STATUS_ACTIVE ? User::STATUS_ACTIVE : User::STATUS_INACTIVE;
-                $disabled = auth()->user()->can('Edit Student') ? '' : 'disabled';
+                $value = $subscriber->user->status == User::STATUS_ACTIVE ? User::STATUS_INACTIVE : User::STATUS_ACTIVE;
+                $altValue = $subscriber->user->status == User::STATUS_ACTIVE ? User::STATUS_ACTIVE : User::STATUS_INACTIVE;
+                $disabled = auth()->user()->can('Edit Subscriber') ? '' : 'disabled';
 
                 return toggleClass($disabled, $checked, $model, $column, $id, $route, $value, $altValue);
             })
-            ->editColumn('address', function ($student) {
-                return Str::limit($student->address, 30, '...');
+            ->editColumn('address', function ($subscriber) {
+                return Str::limit($subscriber->address, 30, '...');
             })
             ->addColumn('bulk_select', function ($row) {
 
                 return '<input class="form-check-input ic-item-select-checkbox" type="checkbox" data-id="' . $row->user_id . '"/>';
 
             })
-            ->editColumn('created_at', function ($student) {
-                return $student->created_at->format('d M Y h:i A');
+            ->editColumn('created_at', function ($subscriber) {
+                return $subscriber->created_at->format('d M Y h:i A');
             })->rawColumns(['bulk_select', 'avatar', 'status', 'created_at', 'action'])->addIndexColumn();
     }
 
@@ -132,7 +120,7 @@ class StudentDataTable extends DataTable
                 });
             })
             ->whereHas('user', function ($query) {
-                $query->where('type', User::TYPE_STUDENT)
+                $query->where('type', User::TYPE_SUBSCRIBER)
                     ->withTrashed();
             })->withTrashed();
     }
@@ -149,7 +137,7 @@ class StudentDataTable extends DataTable
         $actionUrl = route('common.bulk-status-change');
         $model = json_encode(User::class);
 
-        $student_status = route('students.index');
+        $student_status = route('subscribers.index');
 
         return $this->builder()
             ->columns($this->getColumns())
@@ -337,3 +325,4 @@ class StudentDataTable extends DataTable
 
     }
 }
+

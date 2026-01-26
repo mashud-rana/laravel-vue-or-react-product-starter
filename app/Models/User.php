@@ -24,14 +24,14 @@ class User extends Authenticatable
     public const FILE_STORE_PATH    = 'users';
 
 
-    public const TYPE_STUDENT       = 'Student';
+    public const TYPE_SUBSCRIBER    = 'Subscriber';
     public const TYPE_ADMIN         = 'Admin';
     public const TYPE_STAFF         = 'Staff';
     public const TYPE_MEMBERSHIP    = 'Membership';
     public const TYPE_COMPANY       = 'company';
 
     public const TYPES              = [
-        self::TYPE_STUDENT,
+        self::TYPE_SUBSCRIBER,
         self::TYPE_ADMIN,
         self::TYPE_STAFF,
         self::TYPE_MEMBERSHIP,

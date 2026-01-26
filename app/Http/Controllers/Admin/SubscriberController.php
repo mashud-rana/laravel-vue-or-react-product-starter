@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\StudentDataTable;
+use App\DataTables\SubscriberDataTable;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\StudentRequest;
-use App\Services\StudentService;
+use App\Http\Requests\Admin\SubscriberRequest;
+use App\Services\SubscriberService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class StudentController extends Controller
+class SubscriberController extends Controller
 {
-    protected $studentService;
+    protected $subscriberService;
     protected $userService;
-    public function __construct(StudentService $studentService, UserService $userService)
+    public function __construct(SubscriberService $subscriberService, UserService $userService)
     {
-        $this->studentService   = $studentService;
+        $this->subscriberService   = $subscriberService;
         $this->userService      = $userService;
 
     }
@@ -30,11 +30,11 @@ class StudentController extends Controller
     public static function middleware(): array
     {
         return [
-            new Middleware(PermissionMiddleware::using('List Student'), only: ['index']),
-            new Middleware(PermissionMiddleware::using('Add Student'), only: ['create', 'store']),
-            new Middleware(PermissionMiddleware::using('Edit Student'), only: ['edit', 'update']),
-            new Middleware(PermissionMiddleware::using('Delete Student'), only: ['destroy']),
-            new Middleware(PermissionMiddleware::using('Restore Student'), only: ['restore']),
+            new Middleware(PermissionMiddleware::using('List Subscriber'), only: ['index']),
+            new Middleware(PermissionMiddleware::using('Add Subscriber'), only: ['create', 'store']),
+            new Middleware(PermissionMiddleware::using('Edit Subscriber'), only: ['edit', 'update']),
+            new Middleware(PermissionMiddleware::using('Delete Subscriber'), only: ['destroy']),
+            new Middleware(PermissionMiddleware::using('Restore Subscriber'), only: ['restore']),
         ];
     }
 
@@ -42,24 +42,24 @@ class StudentController extends Controller
     {
         $data = $request->all();
 
-        $dataTable = new StudentDataTable($data);
-        setPageMeta(__('List Student'));
+        $dataTable = new SubscriberDataTable($data);
+        setPageMeta(__('List Subscriber'));
 
         return $dataTable->render('common.datatable');
     }
     public function create()
     {
-        setPageMeta(__('Add Student'));
-        return view('admin.students.create');
+        setPageMeta(__('Add Subscriber'));
+        return view('admin.subscribers.create');
     }
 
-    public function store(StudentRequest $request) // Use Request class
+    public function store(SubscriberRequest $request) // Use Request class
     {
         try {
-            $this->studentService->createOrUpdate($request);
+            $this->subscriberService->createOrUpdate($request);
 
             sendFlash(__('Successfully created'));
-            return redirect()->route('students.index');
+            return redirect()->route('subscribers.index');
         } catch (\Exception $e) {
             sendFlash(__($e->getMessage()), 'error');
             return back();
@@ -67,20 +67,20 @@ class StudentController extends Controller
     }
     public function edit($id)
     {
-        setPageMeta(__('Edit Student'));
+        setPageMeta(__('Edit Subscriber'));
         $user = $this->userService->getWithTrashed($id, ['userDetail'=>function($q){
             $q->withTrashed();
         }]);
-        return view('admin.students.edit', compact('user'));
+        return view('admin.subscribers.edit', compact('user'));
     }
 
-    public function update(StudentRequest $request, $id)
+    public function update(SubscriberRequest $request, $id)
     {
         try {
-            $this->studentService->createOrUpdate($request, $id);
+            $this->subscriberService->createOrUpdate($request, $id);
 
             sendFlash(__('Successfully Updated'));
-            return redirect()->route('students.index');
+            return redirect()->route('subscribers.index');
         } catch (\Exception $e) {
             sendFlash(__($e->getMessage()), 'error');
             return back();
@@ -106,7 +106,7 @@ class StudentController extends Controller
             }]);
 
             $this->userService->restore($id);
-            $this->studentService->restore($user->userDetail->id);
+            $this->subscriberService->restore($user->userDetail->id);
             sendFlash(__('Successfully Restored'));
             return back();
         } catch (\Exception $e) {
@@ -117,13 +117,13 @@ class StudentController extends Controller
 
     public function show($id)
     {
-        setPageMeta(__('Student Details'));
+        setPageMeta(__('Subscriber Details'));
 
-        return view('admin.students.show', compact('id'));
+        return view('admin.subscribers.show', compact('id'));
     }
 
     /**
-     * API: Get student details
+     * API: Get subscriber details
      */
     public function showAPI($id)
     {
@@ -135,7 +135,7 @@ class StudentController extends Controller
             return response()->json($user);
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Student not found',
+                'error' => 'Subscriber not found',
                 'message' => $e->getMessage()
             ], 404);
         }
@@ -143,3 +143,4 @@ class StudentController extends Controller
 
 
 }
+

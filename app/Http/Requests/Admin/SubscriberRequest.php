@@ -5,7 +5,7 @@ namespace App\Http\Requests\Admin;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StudentRequest extends FormRequest
+class SubscriberRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class StudentRequest extends FormRequest
         $rules = [
             'first_name'            => ['required', 'string', 'max:100'],
             'last_name'             => ['required', 'string', 'max:100'],
-            'email'                 => ['required', 'string', 'email', 'max:190', Rule::unique('users')->ignore($this->student)],
+            'email'                 => ['required', 'string', 'email', 'max:190', Rule::unique('users')->ignore($this->subscriber)],
             'password'              => ['required', 'string', 'min:8', 'confirmed'],
             'password_confirmation' => ['required', 'string', 'min:8'],
             'phone'                 => ['nullable', 'max:25', 'regex:/^([0-9\s\-\+\(\)]*)$/'],
@@ -36,9 +36,6 @@ class StudentRequest extends FormRequest
             'status'                => ['required'],
 
             'dob'                   => ['nullable', 'date'],
-            'medical_license'       => ['nullable', 'string', 'max:100'],
-            'license_type'          => ['nullable', 'string', 'max:20'],
-            'license_number'        => ['nullable', 'string', 'max:50'],
 
             'about'                 => ['nullable', 'string'],
 
@@ -57,7 +54,7 @@ class StudentRequest extends FormRequest
 
         ];
 
-        if ($this->student) {
+        if ($this->subscriber) {
             $rules['password']              = ['nullable', 'string', 'min:8', 'confirmed'];
             $rules['password_confirmation'] = ['nullable', 'string', 'min:8'];
         }
@@ -65,3 +62,4 @@ class StudentRequest extends FormRequest
         return $rules;
     }
 }
+

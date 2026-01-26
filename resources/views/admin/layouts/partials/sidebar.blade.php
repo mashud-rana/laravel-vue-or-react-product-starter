@@ -32,10 +32,10 @@
                 @endcanany
 
                 @can('Student')
-                    <li class="{{ isActiveRoute('students') }}">
-                        <a href="{{ route('students.index') }}" class="waves-effect">
-                            <i class="ti-user"></i>
-                            <span>{{ __('Students') }}</span>
+                    <li class="{{ isActiveRoute('subscribers') }}">
+                        <a href="{{ route('subscribers.index') }}" class="waves-effect">
+                            <i class="mdi mdi-account-group"></i>
+                            <span>{{ __('Subscribers') }}</span>
                         </a>
                     </li>
                 @endcan

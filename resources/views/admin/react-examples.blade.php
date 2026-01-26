@@ -26,8 +26,8 @@
                 <div
                     data-react-component="DataTableComponent"
                     data-react-props='{
-                        "apiUrl": "{{ route('students.index') }}",
-                        "title": "Students List",
+                        "apiUrl": "{{ route('subscribers.index') }}",
+                        "title": "Subscribers List",
                         "columns": [
                             {"label": "Name", "field": "first_name"},
                             {"label": "Email", "field": "email"},

@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="container-fluid">
-        <!-- Student Profile with React Component -->
+        <!-- Subscriber Profile with React Component -->
         <div
-            data-react-component="StudentDashboard"
+            data-react-component="SubscriberDashboard"
             data-react-props='{
-                "studentId": {{ $id }},
+                "subscriberId": {{ $id }},
                 "apiUrl": "{{ url('/api') }}"
             }'
         ></div>

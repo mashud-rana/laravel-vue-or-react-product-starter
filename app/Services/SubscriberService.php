@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use PDF;
-class StudentService extends BaseService
+class SubscriberService extends BaseService
 {
 //    protected $fileUploadService;
     protected $userService;
@@ -43,7 +43,7 @@ class StudentService extends BaseService
             $user->email            = $data['email'];
             $user->phone            = $data['phone'];
             $user->gender           = $data['gender'];
-            $user->type             = User::TYPE_STUDENT;
+            $user->type             = User::TYPE_SUBSCRIBER;
             $user->status           = $data['status'];
             $user->updated_by       = Auth::id();
 
@@ -60,7 +60,7 @@ class StudentService extends BaseService
                 $data['avatar']      = $this->fileUploadService->uploadFile($request,'avatar',User::FILE_STORE_PATH,);
             }
             $data['created_by']         = Auth::id();
-            $data['type']               = User::TYPE_STUDENT;
+            $data['type']               = User::TYPE_SUBSCRIBER;
             // Store user
             $user                       = User::create($data);
             $data['user_id']            = $user->id;
@@ -92,7 +92,7 @@ class StudentService extends BaseService
         if(isset($data['gender'])){
             $user->gender           = $data['gender'];
         }
-        $user->type             = User::TYPE_STUDENT;
+        $user->type             = User::TYPE_SUBSCRIBER;
         $user->status           = User::STATUS_ACTIVE;
         $user->updated_by       = Auth::id();
 

@@ -41,6 +41,7 @@ class StudentController extends Controller
     public function index(Request $request)
     {
         $data = $request->all();
+
         $dataTable = new StudentDataTable($data);
         setPageMeta(__('List Student'));
 
@@ -113,5 +114,32 @@ class StudentController extends Controller
             return back();
         }
     }
+
+    public function show($id)
+    {
+        setPageMeta(__('Student Details'));
+
+        return view('admin.students.show', compact('id'));
+    }
+
+    /**
+     * API: Get student details
+     */
+    public function showAPI($id)
+    {
+        try {
+            $user = $this->userService->getWithTrashed($id, ['userDetail' => function($q) {
+                $q->withTrashed();
+            }]);
+
+            return response()->json($user);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Student not found',
+                'message' => $e->getMessage()
+            ], 404);
+        }
+    }
+
 
 }

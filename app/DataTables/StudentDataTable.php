@@ -40,6 +40,7 @@ class StudentDataTable extends DataTable
             ->addColumn('action', function ($student) {
                 $buttons = '';
                 if (auth()->user()->can('Edit Student')) {
+                    $buttons .= '<li><a class="dropdown-item" href="' . route('students.show', $student->user->id) . '" title="Show"><i class="mdi mdi-eye-outline"></i>' . __('Show') . '</a></li>';
                     $buttons .= '<li><a class="dropdown-item" href="' . route('students.edit', $student->user->id) . '" title="Edit"><i class="mdi mdi-square-edit-outline"></i>' . __('Edit') . '</a></li>';
                 }
 //                if (auth()->user()->can('Enroll Course')) {

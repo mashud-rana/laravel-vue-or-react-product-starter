@@ -44,11 +44,8 @@
 # ============================================
 # Environment & Configuration
 # ============================================
-.env
-.env.*
 !.env.example
 .env.backup
-.env.production
 auth.json
 
 # ============================================
@@ -79,11 +76,6 @@ phpunit.xml.dist
 /out
 
 # VSCode
-/.vscode
-!/.vscode/settings.json
-!/.vscode/tasks.json
-!/.vscode/launch.json
-!/.vscode/extensions.json
 
 # Sublime Text
 *.sublime-project
@@ -115,6 +107,7 @@ nbdist/
 
 # ============================================
 # Homestead & Docker
+temp_auto_push.bat
 # ============================================
 Homestead.json
 Homestead.yaml
@@ -227,3 +220,5 @@ package-lock.json.bak
 _ide_helper.php
 _ide_helper_models.php
 .phpunit.result.cache
+branch_structure.json
+config.bat
